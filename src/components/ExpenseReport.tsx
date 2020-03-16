@@ -64,7 +64,15 @@ class ExpenseReport extends Component<{}, State> {
     e.preventDefault();
 
     if (this.totalExpenses() > 1000) {
-      return "Total expenses should be less than CAD $1000";
+      const msg = "Total expenses should be less than CAD $1000";
+      window.alert(msg);
+      return;
+    }
+
+    if (this.state.receipts.length >= 5) {
+      const msg = "You can't have more than 5 receipts";
+      window.alert(msg);
+      return;
     }
 
     const { receipts, form } = this.state;
@@ -112,7 +120,9 @@ class ExpenseReport extends Component<{}, State> {
               id="currency"
             >
               {currencies.map(currency => (
-                <option value={currency}>{currency}</option>
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
               ))}
             </select>
           </div>
@@ -124,12 +134,12 @@ class ExpenseReport extends Component<{}, State> {
         <div className="receipts-list">
           <h3>Receipts List</h3>
           <div>
-            {receipts.map((receipt: Receipt) => (
-              <div>
-                <div>{receipt.description}</div>
-                <div>{receipt.amount}</div>
-                <div>{receipt.currency}</div>
-                <div>{receipt.CADValue}</div>
+            {receipts.map((receipt: Receipt, i: number) => (
+              <div key={i}>
+                <div>Description: {receipt.description}</div>
+                <div>Amount: {receipt.amount}</div>
+                <div>Currency: {receipt.currency}</div>
+                <div>CAD Value: {receipt.CADValue}</div>
               </div>
             ))}
           </div>

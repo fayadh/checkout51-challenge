@@ -127,23 +127,26 @@ class ExpenseReport extends Component<{}, State> {
             </select>
           </div>
 
-          <div>$CAD: {this.convertToCAD(form.amount, form.currency)}</div>
+          <div>
+            $CAD:{" "}
+            {this.convertToCAD(form.amount, form.currency).toLocaleString()}
+          </div>
           <button type="submit">Submit Receipt</button>
         </form>
 
         <div className="receipts-list">
-          <h3>Receipts List</h3>
+          <h3>Receipts List ({this.state.receipts.length}/5)</h3>
           <div>
             {receipts.map((receipt: Receipt, i: number) => (
-              <div key={i}>
+              <div className="receipts-list-item" key={i}>
                 <div>Description: {receipt.description}</div>
-                <div>Amount: {receipt.amount}</div>
+                <div>Amount: {receipt.amount.toLocaleString()}</div>
                 <div>Currency: {receipt.currency}</div>
-                <div>CAD Value: {receipt.CADValue}</div>
+                <div>CAD Value: ${receipt.CADValue.toLocaleString()}</div>
               </div>
             ))}
           </div>
-          <div>Total Expenses: {this.totalExpenses()}</div>
+          <div>Total Expenses: {this.totalExpenses().toLocaleString()}</div>
         </div>
 
         <button

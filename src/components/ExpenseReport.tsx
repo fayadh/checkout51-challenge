@@ -39,7 +39,7 @@ class ExpenseReport extends Component<{}, State> {
 
   convertToCAD = (amount: number, currency: string) => {
     const { rates }: { rates: Rates } = this.state;
-    return rates[currency] * amount;
+    return amount / rates[currency];
   };
 
   totalExpenses = () => {
